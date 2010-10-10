@@ -1,0 +1,18 @@
+Infochimps and the 9 +1 properties of usable datasets.
+
+Flip Kromer, CEO of Infochimps, recently described the 9 +1  properties that make a dataset usable. The dataset properties are listed here in order of increasing usability; i.e., usability is a direct function of dataset description detail.
+
+1. Find
+2. Get
+3. README
+Minimal usability (the discovery properties)
+4. Identifiable fields
+5. Labeled fields
+6. Dataset content typed
+Dataset amenable to database instantiation (database properties)
+7. Agent properties
+8. Data properties
+9. Data naming properties
+Dataset can be analyzed and possibly combined (mashed-up) with others. (data analysis properties)
++1. License terms
+License terms are required at each level to enable use, reuse, and remixing.
