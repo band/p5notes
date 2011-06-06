@@ -1,0 +1,24 @@
+-*- mode: org; -*-
+#+STARTUP: showall
+
+***  OBSD4.9 R100 Notes and ToDos (2011-05-31)
+
+1. R100 tasks
+* STARTED setup Emacs org-mode
+
+* TODO send boot info to openbsd.org
+
+* TODO look for writing tools for OBSD
+
+* DONE LibreOffice? KOffice?
+
+N.B.: added Chrome browser, but it seems to want more memory
+allocated and this machine only has 512MB.
+
+* TODO Add taskbar width ( -w 1024) to startup command.
+
+* TODO Add EDITOR env variable (emacs -nw)
+
+* TODO Set up git as repository for R100 notelib files
+
+
