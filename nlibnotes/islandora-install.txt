@@ -234,14 +234,14 @@ php-soap is. I am assuming that "php-soap" will suffice.
 
 2011-11-28
 
-Fedora GSearch seems to be installed. That is, fedoragsearch.war
+5.1.2. Fedora GSearch seems to be installed. That is, fedoragsearch.war
 installed in tomcat/webapps and it did get unpacked. But need to
 verify. Following the documentation steps for "See a demo at your own
 site, almost out of the box"
 
 [ SIDEBAR: moved this notes file to github/band/p5notes/nlibnotes ]
 
-Following instructions in http://localhost:8080/fedoragsearch/#owndemo
+5.1.3. Following instructions in http://localhost:8080/fedoragsearch/#owndemo
 
 fedora.fcfg customization - turn on messaging
  - doc'n does not say this, but fedora.fcfg is found in
@@ -279,4 +279,31 @@ Create the set of config files:
   is frustrating and time consuming effort. [ I will try to uninstall
   the OpenJDK parts and see if ant remains installed. ]
 
+ - $ apt-get purge openjdk-6-jre-headless
+   removes ant; need to install ant separately from Apache.
 
+ [ Maybe I need to install the Ubuntu versions of sun-jdk? I decide no
+ for now. ]
+
+ - ant installed using instructions from here:
+   http://ant.apache.org/manual/index.html
+
+ - setting the configuration files req'd sudo having access to all the
+   appropriate env variables. But it was successful, or reported being
+   so.
+
+ - Tomcat restarted
+
+   However: The documentation page visible at the local site has links to
+   * The Update Index Page
+     ...
+
+   that contains the following URL:
+
+   http://miranth.cvt.dk/fedoragsearch/rest?operation=updateIndex
+
+  - Was this link supposed to be updated? Frustration
+    continues. Replacing "miranth.cvt.dk" with "localhost:8080 yields
+    an empty web page.
+
+BREAK TIME
