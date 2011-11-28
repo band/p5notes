@@ -232,3 +232,51 @@ php-soap is. I am assuming that "php-soap" will suffice.
 
 5.1.2. Fedora GSearch install
 
+2011-11-28
+
+Fedora GSearch seems to be installed. That is, fedoragsearch.war
+installed in tomcat/webapps and it did get unpacked. But need to
+verify. Following the documentation steps for "See a demo at your own
+site, almost out of the box"
+
+[ SIDEBAR: moved this notes file to github/band/p5notes/nlibnotes ]
+
+Following instructions in http://localhost:8080/fedoragsearch/#owndemo
+
+fedora.fcfg customization - turn on messaging
+ - doc'n does not say this, but fedora.fcfg is found in
+   $FEDORA_HOME/server/config
+
+fedora-users.xml customization - add GSearch admin
+ - this file is also found in $FEDORA_HOME/server/config
+
+Create the set of config files:
+ - http://localhost:8080/fedoragsearch/basicproperties
+   yields HTTP Status 404
+
+ - key phrase is "... All you need to do is edit a few of the property
+   values in the file fgsconfig-basic.properties, including passwords
+   ...."
+
+   - doc'n problem: the file fgsconfig-basic.properties is found in
+   $CATALINA_HOME/webapps/fedoragsearch/FgsConfig/
+
+ - fgsconfig-basic.properties file problems:
+  (1) variable local.FEDORA_HOME=/Users/gertschmeltzpederson/f35
+
+   [ Huh? Why is this local variable defined? And why is it defined
+   for gert pederson's setup? ]
+   [ my understanding: (1) redefine local.FEDORA_HOME;
+   (2) insure fedoraAdmin password is correct (from install). ]
+
+  (2) OK, I think I have udpated the fgsconfig-basic.properties
+  file. But the next problem is "ant"; I don't think it is
+  installed. Did I miss this in the preconditions?
+
+  "ant" issues: using "apt-get install ant" has now reinstalled the
+  OpenJDK JRE headless and lib packages. #$%&! OpenJDK is not
+  recommended, however, installing Apache tools brings them in. This
+  is frustrating and time consuming effort. [ I will try to uninstall
+  the OpenJDK parts and see if ant remains installed. ]
+
+
