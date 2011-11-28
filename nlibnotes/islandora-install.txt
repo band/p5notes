@@ -1,0 +1,234 @@
+2011-11-13
+
+1. Islandora 11.2 install on a VM running Ubuntu 10-LTS.
+
+2. First need to install the components Drupal and Fedora.
+
+3. Drupal install
+3.1. Used apt-get install drupal6. Drupal6 installed in /usr/share/drupal6.
+
+3.2. Islandora instructions say to copy contents of drupal install
+directory to /var/www/html. Why? Is this directory already specified
+as the Apache2 document root? And if so, where? Is this directory
+expected to be the document root for other Islandora configurations
+and dependencies?
+
+Where is the document root specified? Need to look in the default
+Apache2 configuration files. For default Ubuntu install these are in
+/etc/apache2 directory.
+
+3.3. /etc/apache2/sites-available/default
+  DocumentRoot /var/www
+
+ - need to look at some other systems and then review Drupal install
+   docs
+
+3.4. Drupal documentation suggests moving drupal-x.x /var/www
+ - therefore a soft link to /usr/share/drupal6 should work.
+ ref: http://drupal.org/documentation/install/developers
+
+2011-11-15
+
+1. Drupal install completed by working through the Quick Install for
+Developers.
+
+  - I did need to reset the password for the drupal6 user
+in MySQL and update the dbconfig file.
+  - install did not work until I used the following URL:
+    http://localhost/drupal/install.php
+    [ not sure why that was the case ]
+
+    [ still uncertain about the permissions for sites/default/ and
+    settings.php. Drupal documentation could be more specific. ]
+
+2. Islandora suggests "Proceed with initial configuration steps on the
+Drupal "Welcome" page. But I am not certain what is required for
+Islandora. Ditto for Module List. Perhaps none of these are required
+for an Islandora setup. That is how I am going to proceed.
+
+3. Next step: Install Fedora
+3.1. Pre-install software checklist
+   - Java SE Development Kit (JDK) 6
+     [ How do I know such a kit is or is not installed? ]
+     [ $ java -version # shows the version of any installed JRE ]
+
+     [ apt-get install openjdk-6-jdk
+       dpkg-query -l *jdk* # shows what is available
+       after install javac -version # shows java version ]
+
+3.1.a. removed OpenJDK and installed Sun JDK 1.6 into /usr/local/jdk1.6
+
+3.1.b. (20111120 update): Ubuntu 10.04
+To make Sun's Java 6 JDK available on Ubuntu 10.04 add the new repository like so:
+
+add-apt-repository "deb http://archive.canonical.com/ lucid partner"
+aptitude update
+aptitude install sun-java6-jdk
+update-java-alternatives -s java-6-sun
+
+From http://christiansons.net/mike/blog/2010/07/sun-java-6-on-ubuntu-10-04-10-10-and-later/
+
+
+3.2. Download Fedora Repo SW
+3.2.1. Fedora prerequisites cont'd.
+
+ - download and install maven
+
+ [ this is yet another dependency that seems to require its own
+ special bin directory and addition to the PATH. I'm thinking I want
+ one Apache Project tree, maybe /usr/share/ap or /usr/local/ap?  That
+ won't work; there are too many files. I opt for /usr/local/maven ]
+
+3.2.2. Creating fedora3 database and granting privileges to
+ fedoraAdmin Yikes! The syntax of the GRANT statements in the
+ documentation did not work for me. It took me a good 15 minutes of
+ checking MySQL documentation and fiddling with quotation marks to get
+ it right. The correct GRANT statement looks like this:
+
+GRANT ALL ON fedora3.* TO 'fedoraAdmin'@'localhost' IDENTIFIED BY 'fedoraAdmin';
+
+ The statement in the Fedora documentation looks like this:
+
+GRANT ALL ON fedora3.\* TO fedoraAdmin@localhost IDENTIFIED BY 'fedoraAdmin';
+
+Note 2 errors: (1) ".\*" not recognized by MySQL; ".*" is. (2) missing
+quotation marks around '<username>'@'localhost'.
+
+3.3.3. first run of Fedora Commons install result:
+
+band@aperol:~/Downloads$ sudo java jar fcrepo-installer-3.5.jar 
+Exception in thread "main" java.lang.NoClassDefFoundError: jar
+Caused by: java.lang.ClassNotFoundException: jar
+       at java.net.URLClassLoader$1.run(URLClassLoader.java:217)
+       at java.security.AccessController.doPrivileged(Native Method)
+       at java.net.URLClassLoader.findClass(URLClassLoader.java:205)
+       at java.lang.ClassLoader.loadClass(ClassLoader.java:321)
+       at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:294)
+       at java.lang.ClassLoader.loadClass(ClassLoader.java:266)
+Could not find the main class: jar. Program will exit.
+band@aperol:~/Downloads$ java -version
+java version "1.6.0_29"
+Java(TM) SE Runtime Environment (build 1.6.0_29-b11)
+Java HotSpot(TM) Client VM (build 20.4-b02, mixed mode, sharing)
+band@aperol:~/Downloads$ 
+
+3.3.4. Java stack trace error result of not having ENV variables
+available (I think). Remedied with a Restart, but Logout would have
+been sufficient.
+
+ - Fedora Admin pw: fedupadmin
+
+2011-11-16
+
+3.3.5. Fedora "quick" install succeeded after reboot and login (to set
+up all the requisite ENV variables [ need a better way to do this ]).
+
+3.3.6. However, it appears that CATALINA_HOME needs to be set to
+support the Tomcat installation. Current documentation does not give
+*any* suggestion about what it should be set to. Earlier Fedora 3.4
+documentation does specify that CATALINA_HOME be set to
+$FEDORA_HOME/tomcat *if* the "quick" install option is selected.
+[ Why was this information not carried forward? ]
+
+2011-11-17
+
+4. Fedora seems to be running. At least I was able to start
+FedoraAdmin and create a new Object.
+
+4.1. added rtf file as a datastream to new object, but some
+understanding of the underlying data and object models is required.
+
+4.2. Looking at the Islandora documentation I see that I should have
+chosen "custom", not "quick" install. So now we get to see how to
+uninstall Fedora and start that step over again.
+
+4.2.1. Uninstall just looks like delete $FEDORA_HOME and delete MySQL
+table and user?
+
+4.3. Fedora "custom" install: following Islandora doc'n here:
+
+https://wiki.duraspace.org/display/ISLANDORA/Installing+Fedora
+
+4.3.1. It looks like there is no content in the existing fedora3 DB
+table, so I will leave it as it is and see what happens.
+
+ [ log out and log in to reset everything ]
+
+4.3.2. "custom" install went well; needed to provide mysql root
+privileges to complete.
+
+ - Islandora documentation says that custom install enables resource
+   index by default, but that is not true in Fedora3.5. You must
+   enable it when asked by the installer.
+
+ - Did NOT use the install.properties script
+
+4.3.3. ran $FEDORA_HOME/tomcat/bin/startup.sh
+ - catalina.out  had the following error:
+
+Exception in thread "main" java.lang.NoClassDefFoundError: \-Xmx1024m
+Caused by: java.lang.ClassNotFoundException: \-Xmx1024m
+       at java.net.URLClassLoader$1.run(URLClassLoader.java:202)
+       at java.security.AccessController.doPrivileged(Native Method)
+       at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+       at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+       at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+       at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+Could not find the main class: \-Xmx1024m.  Program will exit.
+
+ - however localhost:8080/fedora displayed a working page. So I don't
+   understand what is not running.
+
+ - I think the JAVA_OPTS env setup is wrong
+
+4.3.4. 30+ minutes of fiddling to get fedora/tomcat/bin/startup.sh to
+run without errors in catalina.out.
+ - several updates /etc/alternatives/java to link to sun-jdk
+ - purge and removal of remaining openjdk jres
+ - comment out JAVA_OPTS env variable; syntax seems wrong
+
+ - but it appears that Fedora is running.
+
+ - suggestion to try fedora/admin doesn't work; error message:
+
+Alternate HTML content should be placed here. This content requires the Adobe Flash Player. Get Flash
+
+ - TIME FOR A BREAK.
+
+2011-11-18
+
+4.4. Continuing with the Islandora Fedora instructions.
+
+4.4.1. Need to install Flash to use the fedora/admin webpage (depends
+on Adobe Flex)
+ - used Package Manager
+
+4.4.2. OK, I have used the fedora/admin webpage to create a new object
+with a new PID. I attempted to add an RTF datastream, but it looks
+like XML is what is wanted.
+ [ Definitely need to look at the Tutorials ]
+
+4.4.3. fedora/admin webpage uses flash and popups that can get hidden.
+ [ I do not think I can go further without having FOXML examples. ]
+
+4.4.4. using the command-line shell script yields better window mgt
+properties on a small laptop screen.
+
+2011-11-20
+
+5. Setup Islandora demo on VirtualBox.
+ - Adjustments: added xterm to support ssh xterm access
+
+ - Observations:
+   - Islandora installs Drupal in /var/www/drupal *not* /var/www/html
+   - Islandora demo install needs Drupal update; drush is installed
+
+5.1. (continuation of 4.4.4.)
+
+5.1.1 Islandora "Pre-installation software checklist" step 3 states
+that Islandora req'ts include PHP5-curl, PHP5-soap,
+PHP5-xsl. PHP5-soap is not available as an aptitude package, but
+php-soap is. I am assuming that "php-soap" will suffice.
+
+5.1.2. Fedora GSearch install
+
