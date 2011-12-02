@@ -307,3 +307,27 @@ Create the set of config files:
     an empty web page.
 
 BREAK TIME
+
+2011-12-01
+
+1. Reboot. Just to see how everything responds.
+
+1.1. fedoragsearch cannot connect to localhost:8080
+ - Tomcat not running
+
+ - MySQL is running (tested with phpMyAdmin)
+
+ - tomcat/bin/startup.sh doesn't seem to start it up.
+
+BREAK TIME (some days you just don't have much sysadmin time)
+
+2011-12-02
+
+1.1., cont'd. Error seemed to be that JAVA_OPTS was defined. Once it
+was unset in the ENV then Fedora startup went fine, with no errors in
+catalina.out.
+
+[ Need to better understand the JAVA_OPTS env variable. In the
+documentation it appears to have a syntax error: a "\" preceding every
+"-X" or "-D". Will not follow this up now. We were working on
+fedoragsearch. ]
