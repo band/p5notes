@@ -1,0 +1,4 @@
+# Mouse and focus behavior
+ClickTime 350
+MoveThreshold 3
+Style * SloppyFocus, MouseFocusClickRaises
