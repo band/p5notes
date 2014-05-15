@@ -1,0 +1,13 @@
+2014-05-18
+
+1. using app-defaults/XTerm-color in .Xdefaults.
+  - still confused about what controls what; e.g.,
+    - when XTerm is started, which dot files are evaluated (if any)
+    - when OpenBSD Xwindows is started, then what dot files are
+      evaluated on wmanager startup and what files are evaluated on
+      XTerm startup?
+
+2. using colorls in place of ls, but wonder how the colors can be reassigned.
+   - also what is with the color nonesense in Emacs?
+
+
