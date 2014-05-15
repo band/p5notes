@@ -1,6 +1,8 @@
 XTerm*loginShell:true
-xterm*font: terminus-12
-xterm*boldFont: terminus-12
+XTerm*faceName: terminus
+XTerm*faceSize: 8
+#xxterm*font: terminus-12
+# xterm*boldFont: terminus-12
 xterm*vt100*geometry: 88x50
 xterm*saveLines: 2000
 xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
