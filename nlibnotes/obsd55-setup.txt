@@ -1,0 +1,7 @@
+2014-05-19
+
+1. One frustration is setting up ssh-agent to manage the git access to
+bitbucket and github. I've added 90 day times to the ssh-add
+commands. We'll see what happens. It seems that a reboot kills the
+ssh-agent and so a new agent and key additions are required.
+
