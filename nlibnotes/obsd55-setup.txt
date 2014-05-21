@@ -5,3 +5,13 @@ bitbucket and github. I've added 90 day times to the ssh-add
 commands. We'll see what happens. It seems that a reboot kills the
 ssh-agent and so a new agent and key additions are required.
 
+2. Terminal confusion with XTerm config, settings, colors, ..., yikes!
+I need to start off with a very simple .Xresources or .Xdefaults file
+and build it up. But, wow! Just wow! Tinkering R me.
+
+2014-05-20
+3. the date is never updated; and ntpd is running. i don't get it. grrrr.
+
+4. need to know how .login, .profile, and .bashrc are called. this
+seems to be an ongoing confusion for me with Unix.
+
