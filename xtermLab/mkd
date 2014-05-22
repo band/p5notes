@@ -1,0 +1,5 @@
+# mkd: mknew description file
+#
+
+textfile	Xresources ${HOME}/.Xresources
+textfile	Xdefaults  ${HOME}/.Xdefaults
