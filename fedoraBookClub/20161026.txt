@@ -1,0 +1,130 @@
+2106-01-26 Fedora Book Club
+Dean Allemang & James Hendler
+
+Kristi Searle
+
+
+Questions:
+
+This is a temporary document for collecting questions and topics to be
+shared with Drs. Jim Hendler and Dean Allemang to help inform his book
+club introduction teleconference on, “Semantic Web for the Working
+Ontologist”.
+
+
+1. What do we do when asserting an external URI, and it stops
+resolving? We’re left with a URI representing a thing, but no
+available metadata about that thing.
+
+DA: diff between URI and URL. URI is an identifier that can be shared.
+JH: importance of URI design (linked data relies on good URIs)
+    tension between LD world & shortened links (need persistence)
+
+2. When we assert a URI, are we expected to trust any changes to the
+external metadata? Does the point in time a statement was asserted
+matter?
+
+DA: making new statements about something on the web is a general
+problem for the web. FIBO does not use Wikipedia for definitions
+because persistence is needed. Pages have a contract on their
+durability?
+JH: RDF; named graph; how to make assertions about assertions
+(reification). newer SPARQL allows named graphs. adding graph names to
+a triple store. can make local assertions about external
+resources. can keep local metadata about external web items.
+
+Q: who names the graph and makes verions of it?
+DA: can go either way; can have a service contract with resource
+providers.
+
+3. When there isn’t an existing predicate or resource for something
+we’d like to describe, what’s the best practice for minting a new URI?
+Is there any software you’d recommend to make it easier?
+
+DA: FIBO work. Enterprise data council, stds work, slower
+moving. chose minting human-readable URIs. FAO agravoc (numeric URIs,
+change labels).
+JH: 2 audiences: machine and human. depends on the goals. can put
+alternate names and comments in RDF.
+DA: use a notation for persistent identity in the RDF.
+JH: can use "see also" in RDF. provide a formal name and a set of
+synonyms.
+
+4. Does a URI have to resolve via HTTP/DNS? How about via a link
+resolver?
+DA: same as Q#1.
+JH: key is persistence.
+
+5. When we want to make statements about external URIs, what’s the
+best practice to make them available? Publish them as parts of related
+graphs, mint a local URI with owl:sameAs and use that instead, or
+something else?
+
+DA: (jh and i will disagree) inside the bank; just re-use the IRIs for
+country and currency ISO codes; mint local URIs and use owl:sameAs to
+connect them. bank needs to vet outside resources and cache vetted
+copies. normative vs. informative.
+JH: Brits spent time on design of URIs. try to keep local local.
+
+6. When is the time not to mint a local URI for an external entity?
+In a distributed web environment, is it necessary for a web
+application to distinguish an internal entity and an external entity?
+
+DA: similar to Q#5. industry context different from general web
+context.
+
+7. when we want to ingest metadata about external URIs, for caching or
+indexing purpose, what’s the best practice for tracking the
+provenance?  keep them in a separate graph?
+
+JH: stds for provenance (PROV, PROVO) are becoming important. need to
+keep source info from the start.
+DA: noSQL doc stores with RDF supports self-mgt of docs.
+
+8. The library/archive/museum community is increasingly exposing its
+resources and collections via linked RDF. What are the existing and
+emergent practices for querying and inferencing across institutional
+boundaries?
+JH: current, important issue. creation of small lightweight
+stds. schema.org.
+
+9. How to achieve the vision of semantic web as “an organized
+worldwide system where information flows from one place to another in
+a smooth but orderly way” if there is no gatekeeper for the data on
+the web (“data wilderness”).  How does the human or the machine know
+what data to trust/to use/to update? Is there a limit to AAA principle
+(anyone can say anything about any topic)?
+
+
+10. What are best practices around storing linked data for internal /
+application use? What are good reasons for storing and using triples
+as such? When would it make more sense to store the data in some other
+(presumably more efficient) format, with the ability to output triples
+as needed for publication?
+
+11. what are the challenges of semantic modeling?  What is your advice
+to meet those challenges?
+
+
+
+
+Modeling?
+
+da: existing data landscape is varied
+professional data modelers; data warehousing models
+look at existing models and spreadsheets
+what distinctions are missing or needed?
+URI questions are crucial
+relational data modelers are good for a start
+
+jh: ontology is being used to talk about the model
+    (not so much as the formal)
+
+==============================
+Dean and Jim announcement:
+3rd Edition: add more linked-data landscape to the book
+
+What should be included in the new book?
+
+==============================
+Andrew Wood: book club follow-up
